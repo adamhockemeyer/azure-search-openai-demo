@@ -46,14 +46,15 @@ jobs:
       
       - name: Zip artifact for deployment
         run: |
-          zip release.zip app/backend/* -r --exclude frontend/\* --exclude infra/\* --exclude infrastructure/\* --exclude data/\* --exclude venv/\*
+          cd app/backend
+          zip release.zip ./* -r --exclude frontend/\* --exclude infra/\* --exclude infrastructure/\* --exclude data/\* --exclude venv/\*
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
         with:
           name: python-app
           path: |
-            release.zip
+            app/backend/release.zip
 
   deploy:
     runs-on: ubuntu-latest
