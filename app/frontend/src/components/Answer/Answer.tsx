@@ -94,6 +94,12 @@ export const Answer = ({
                     </Stack>
                 </Stack.Item>
             )}
+            <Stack.Item>
+            <Stack horizontal wrap tokens={{ childrenGap: 5 }}>
+                        <span className={styles.citationLearnMore}>Feedback:</span>
+                        <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR0bSDlnq3NtHvDXWAhExE9hUNENLUzJFV1VDUzJGSjZRQzgxVjVOWjVTNy4u">Click to provide feedback</a>
+                    </Stack>
+            </Stack.Item>
         </Stack>
     );
 };
