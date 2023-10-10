@@ -24,6 +24,7 @@ jobs:
 
       - name: Create and start virtual environment
         run: |
+          cd app/backend
           python -m venv venv
           source venv/bin/activate
       
@@ -47,7 +48,7 @@ jobs:
       - name: Zip artifact for deployment
         run: |
           cd app/backend
-          zip release.zip ./* -r --exclude frontend/\* --exclude infra/\* --exclude infrastructure/\* --exclude data/\* --exclude venv/\*
+          zip release.zip ./* 
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
