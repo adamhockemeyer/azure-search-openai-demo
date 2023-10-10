@@ -29,17 +29,17 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cd backend
+          cd app/backend
           pip install -r requirements.txt
 
       - name: Restore frontend npm packages
         run: |
-          cd ../frontend
+          cd app/frontend
           npm install
 
       - name: Build frontend
         run: |
-          cd ../frontend
+          cd app/frontend
           npm run build
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
