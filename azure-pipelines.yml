@@ -19,8 +19,11 @@ variables:
   # Environment name
   environmentName: 'app-backend-euij3tutiz5gw'
 
+  # Frontend root folder. Point to the folder containing manage.py file.
+  frontendRoot: $(System.DefaultWorkingDirectory)/app/frontend
+
   # Project root folder. Point to the folder containing manage.py file.
-  projectRoot: $(System.DefaultWorkingDirectory)
+  projectRoot: $(System.DefaultWorkingDirectory)/app/backend
 
   # Python version: 3.11
   pythonVersion: '3.11'
@@ -33,6 +36,14 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+    - script: |
+        npm install
+      workingDirectory: $(frontendRoot)
+      displayName: "Install frontend NPM packages"
+    - script: |
+        npm run build
+      workingDirectory: $(frontendRoot)
+      displayName: "Build frontend and copy files to static folder in backend."
     - task: UsePythonVersion@0
       inputs:
         versionSpec: '$(pythonVersion)'
@@ -45,7 +56,7 @@ stages:
         pip install setup
         pip install -r requirements.txt
       workingDirectory: $(projectRoot)
-      displayName: "Install requirements"
+      displayName: "Install python requirements"
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
@@ -80,7 +91,7 @@ stages:
             displayName: 'Use Python version'
 
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : app-backend-euij3tutiz5gw'
+            displayName: 'Deploy Azure Web App'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
